@@ -1,0 +1,9 @@
+---
+- name: Download dataset using datahugger
+  hosts: localhost
+
+  tasks:
+  - name: Download the dataset
+    download_dataset:
+      dataset_url: "{{ dataset_url }}" # "10.5061/dryad.mj8m0"
+      output_dir: "{{ output_dir }}" # "/tmp/dataset"
