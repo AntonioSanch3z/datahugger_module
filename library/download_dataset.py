@@ -48,14 +48,28 @@ message:
 
 from ansible.module_utils.basic import AnsibleModule
 import datahugger
+import os
 
 def download_dataset(module):
     dataset_url = module.params['dataset_url']
     output_dir = module.params['output_dir']
+    dataset_name = dataset_url.split('/')[-1].replace('.', '_')
+    dataset_path = os.path.join(output_dir, dataset_name)
+
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    if os.path.exists(dataset_path):
+        result = {
+            'changed': False,
+            'msg': f"Dataset already exists at {dataset_path}"
+        }
+        module.exit_json(**result)
 
     try:
+        os.makedirs(dataset_path, exist_ok=True)
         # Download dataset using datahugger
-        datahugger.get(dataset_url, output_dir)
+        datahugger.get(dataset_url, dataset_path)
         result = {
             'changed': True,
             'msg': f"Dataset downloaded successfully to {output_dir}"

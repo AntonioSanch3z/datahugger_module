@@ -1,19 +1,8 @@
 ---
 - name: Download dataset using datahugger
   hosts: localhost
-  vars:
-    dataset_name: "{{ dataset_url.split('/')[-1].replace('.', '_') }}"
-    dataset_path: "{{ output_dir }}/{{ dataset_name }}"
-
   tasks:
-  - name: Check if dataset already exists
-    stat:
-      path: "{{ dataset_path }}"
-    register: dataset_exists
-    when: output_dir is defined
-
-  - name: Download the dataset
-    download_dataset:
-      dataset_url:  "{{ dataset_url }}"
-      output_dir:  "{{ dataset_path }}"
-    when: output_dir is defined and not dataset_exists.stat.exists
+    - name: Download the dataset
+      download_dataset:
+        dataset_url: "{{ dataset_url }}"
+        output_dir: "{{ output_dir }}"
