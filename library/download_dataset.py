@@ -49,7 +49,6 @@ message:
 from ansible.module_utils.basic import AnsibleModule
 import datahugger
 
-
 def download_dataset(module):
     dataset_url = module.params['dataset_url']
     output_dir = module.params['output_dir']
