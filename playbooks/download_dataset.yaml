@@ -1,7 +1,6 @@
 ---
 - name: Install datahugger and download dataset
   hosts: localhost
-  become: true
   vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:
