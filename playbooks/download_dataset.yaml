@@ -11,6 +11,7 @@
       ansible.builtin.pip:
         name: datahugger
         state: present
+        executable: pip
 
     - name: Download the dataset
       grycap.dataset.download_dataset:
